@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
 import {
   BadgeCheck,
-  Bell, Bird,
+  Bell,
   Bookmark,
-  BriefcaseBusiness, CircleEllipsis, Ellipsis,
+  BriefcaseBusiness, CircleEllipsis,
   House,
   Mail, Plus,
   Search,
@@ -12,98 +12,81 @@ import {
   Zap
 } from 'lucide-react'
 import Link from 'next/link'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import {
-  DropdownMenu,
-  DropdownMenuContent, DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+import MenuItem from '@/components/MenuItem'
+import MenuAvatar from '@/components/MenuAvatar'
+import ThemeToggle from '@/components/ThemeToggle'
 
-function Menu () {
+const Menu = ()=> {
   return (
     <div className='flex flex-col max-md:justify-center max-md:items-center my-2 gap-3.5'>
-      <Button variant='ghost' size='menuIcon' asChild>
-        <Link href="/" className="flex gap-1">
-          <Bird className="size-8" />
-        </Link>
-      </Button>
+      <ThemeToggle />
 
-      <Button variant='ghost' size='menuItem' asChild>
-        <Link href="/" className="gap-5 w-fit">
-          <House className="size-6" />
-          <span className="text-xl font-semibold mr-5 block max-xl:hidden">Home</span>
-        </Link>
-      </Button>
+      <MenuItem
+        href="/"
+        icon={House}
+        label="Home"
+        active='true'
+      />
 
-      <Button variant='ghost' size='menuItem' asChild>
-        <Link href="#" className="gap-5 w-fit">
-          <Search className="size-6" />
-          <span className="text-xl font-thin mr-5 block max-xl:hidden">Explore</span>
-        </Link>
-      </Button>
+      <MenuItem
+        href="/"
+        icon={Search}
+        label="Explore"
+      />
 
-      <Button variant='ghost' size='menuItem' asChild>
-        <Link href="#" className="gap-5 w-fit">
-          <Bell className="size-6" />
-          <span className="text-xl font-thin mr-5 block max-xl:hidden">Notifications</span>
-        </Link>
-      </Button>
+      <MenuItem
+        href="/"
+        icon={Bell}
+        label="Notifications"
+      />
 
-      <Button variant='ghost' size='menuItem' asChild>
-        <Link href="#" className="gap-5 w-fit">
-          <Mail className="size-6" />
-          <span className="text-xl font-thin mr-5 block max-xl:hidden">Messages</span>
-        </Link>
-      </Button>
+      <MenuItem
+        href="/"
+        icon={Mail}
+        label="Messages"
+      />
 
-      <Button variant='ghost' size='menuItem' asChild>
-        <Link href="#" className="gap-5 w-fit">
-          <Bookmark className="size-6" />
-          <span className="text-xl font-thin mr-5 block max-xl:hidden">Bookmarks</span>
-        </Link>
-      </Button>
+      <MenuItem
+        href="/"
+        icon={Bookmark}
+        label="Bookmarks"
+      />
 
-      <Button variant='ghost' size='menuItem' asChild>
-        <Link href="#" className="gap-5 w-fit">
-          <BriefcaseBusiness className="size-6" />
-          <span className="text-xl font-thin mr-5 block max-xl:hidden">Jobs</span>
-        </Link>
-      </Button>
+      <MenuItem
+        href="/"
+        icon={BriefcaseBusiness}
+        label="Jobs"
+      />
 
-      <Button variant='ghost' size='menuItem' asChild>
-        <Link href="#" className="gap-5 w-fit">
-          <Users className="size-6" />
-          <span className="text-xl font-thin mr-5 block max-xl:hidden">Communities</span>
-        </Link>
-      </Button>
+      <MenuItem
+        href="/"
+        icon={Users}
+        label="Communities"
+      />
 
-      <Button variant='ghost' size='menuItem' asChild>
-        <Link href="#" className="gap-5 w-fit">
-          <BadgeCheck className="size-6" />
-          <span className="text-xl font-thin mr-5 block max-xl:hidden">Premium</span>
-        </Link>
-      </Button>
+      <MenuItem
+        href="/"
+        icon={BadgeCheck}
+        label="Premium"
+      />
 
-      <Button variant='ghost' size='menuItem' asChild>
-        <Link href="#" className="gap-5 w-fit">
-          <Zap className="size-6" />
-          <span className="text-xl font-thin mr-5 block max-xl:hidden">Verified Orgs</span>
-        </Link>
-      </Button>
+      <MenuItem
+        href="/"
+        icon={Zap}
+        label="Verified Orgs"
+      />
 
-      <Button variant='ghost' size='menuItem' asChild>
-        <Link href="/" className="gap-5 w-fit">
-          <User className="size-6" />
-          <span className="text-xl font-thin mr-5 block max-xl:hidden">Profile</span>
-        </Link>
-      </Button>
+      <MenuItem
+        href="/"
+        icon={User}
+        label="Profile"
+      />
 
-      <Button variant='ghost' size='menuItem' asChild>
-        <Link href="#" className="gap-5 w-fit">
-          <CircleEllipsis className="size-6" />
-          <span className="text-xl font-thin mr-5 block max-xl:hidden">More</span>
-        </Link>
-      </Button>
+      <MenuItem
+        href="/"
+        icon={CircleEllipsis}
+        label="More"
+      />
 
       <Button className='rounded-full mt-3 mb-8 md:mr-5' size='menuItem' asChild>
         <Link href="#" className="md:min-w-max">
@@ -112,25 +95,7 @@ function Menu () {
         </Link>
       </Button>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <div className='flex flex-row items-center gap-4'>
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback></AvatarFallback>
-            </Avatar>
-            <div className='flex flex-col items-start max-xl:hidden'>
-              <span className='font-semibold'>name</span>
-              <span className='text-gray-400'>@username</span>
-            </div>
-            <Ellipsis className='size-4 ml-auto mr-5 block max-xl:hidden'/>
-          </div>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem>Add an existing account</DropdownMenuItem>
-          <DropdownMenuItem>Log out @username</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <MenuAvatar name={'Samet Ozturk'} username={'jesuisamet'} avatar={'https://github.com/shadcn.png'}/>
     </div>
   )
 }

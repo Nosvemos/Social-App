@@ -15,10 +15,6 @@ export default function Home() {
       <SignedIn>
         <UserButton />
       </SignedIn>
-
-      <ThemeToggle />
-
-      <Button variant='secondary'>Click me!</Button>
     </div>
   );
 }
