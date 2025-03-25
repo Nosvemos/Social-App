@@ -95,7 +95,7 @@ const Menu = ()=> {
         </Link>
       </Button>
 
-      <MenuAvatar name={'Samet Ozturk'} username={'jesuisamet'} avatar={'https://github.com/shadcn.png'}/>
+      <MenuAvatar/>
     </div>
   )
 }
