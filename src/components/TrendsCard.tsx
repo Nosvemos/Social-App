@@ -2,6 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import TrendsItem from '@/components/TrendsItem'
+import LoadingSkeleton from '@/components/LoadingSkeleton'
+import { Suspense } from 'react'
 
 const TrendsCard = () => {
   return (
@@ -11,10 +13,21 @@ const TrendsCard = () => {
       </CardHeader>
       <CardContent>
         <div className='flex flex-col'>
-          <TrendsItem title='Trending in Turkey' tag='#Saraçhanedeyiz' postCount={104000}/>
-          <TrendsItem title='Trending in Turkey' tag='#BOYKOT' postCount={137000}/>
-          <TrendsItem title='Trending in Turkey' tag='#izlemiyoruz' postCount={3003}/>
-          <TrendsItem title='Trending in Turkey' tag='Galata Köprüsü' postCount={25612}/>
+          <Suspense fallback={<LoadingSkeleton className='p-4' hasThird={true} />}>
+            <TrendsItem title='Trending in Turkey' tag='#Saraçhanedeyiz' postCount={104000}/>
+          </Suspense>
+
+          <Suspense fallback={<LoadingSkeleton className='p-4' hasThird={true} />}>
+            <TrendsItem title='Trending in Turkey' tag='#BOYKOT' postCount={137000}/>
+          </Suspense>
+
+          <Suspense fallback={<LoadingSkeleton className='p-4' hasThird={true} />}>
+            <TrendsItem title='Trending in Turkey' tag='#izlemiyoruz' postCount={3003}/>
+          </Suspense>
+
+          <Suspense fallback={<LoadingSkeleton className='p-4' hasThird={true} />}>
+            <TrendsItem title='Trending in Turkey' tag='Galata Köprüsü' postCount={25612}/>
+          </Suspense>
         </div>
         <Button variant='ghostV2' size='trendsLoad'>
           <Link href="/">

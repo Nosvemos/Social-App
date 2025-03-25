@@ -23,6 +23,7 @@ const buttonVariants = cva(
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/15",
         link: "text-primary underline-offset-4 hover:underline",
         iconButton: 'hover:bg-blue-400/20 hover:text-blue-400',
+        reverseIconButton: 'hover:bg-blue-400/20 text-blue-400 rounded-full',
         blueButton: 'bg-blue-400 hover:bg-blue-400/90 text-white text-md font-bold rounded-full'
       },
       size: {

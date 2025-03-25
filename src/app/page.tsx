@@ -1,6 +1,14 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
-import { Button } from '@/components/ui/button'
+import PageLayout from '@/components/layouts/PageLayout'
+import { Suspense } from 'react'
+import LoadingSpinner from '@/components/LoadingSpinner'
+import Feed from '@/components/Feed'
 
-export default function Home() {
-  return <h1>Sa</h1>
+export default function HomePage() {
+  return (
+    <PageLayout>
+      <Suspense fallback={<LoadingSpinner size={26}/>}>
+        <Feed/>
+      </Suspense>
+    </PageLayout>
+  )
 }

@@ -15,6 +15,8 @@ import Link from 'next/link'
 import MenuItem from '@/components/MenuItem'
 import MenuAvatar from '@/components/MenuAvatar'
 import ThemeToggle from '@/components/ThemeToggle'
+import { Suspense } from 'react'
+import LoadingSkeleton from '@/components/LoadingSkeleton'
 
 const Menu = ()=> {
   return (
@@ -95,7 +97,9 @@ const Menu = ()=> {
         </Link>
       </Button>
 
-      <MenuAvatar/>
+      <Suspense fallback={<LoadingSkeleton avatar={true} />}>
+        <MenuAvatar/>
+      </Suspense>
     </div>
   )
 }

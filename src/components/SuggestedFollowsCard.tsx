@@ -2,8 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import SuggestedFollowsItem from '@/components/SuggestedFollowsItem'
+import { Suspense } from 'react'
+import LoadingSkeleton from '@/components/LoadingSkeleton'
 
-const SuggestedFollowsCard = () => {
+const SuggestedFollowsCard = async () => {
   return (
     <Card className="w-full pt-3">
       <CardHeader className='gap-0 mb-2'>
@@ -11,11 +13,9 @@ const SuggestedFollowsCard = () => {
       </CardHeader>
       <CardContent>
         <div className='flex flex-col mb-2 gap-8'>
-          <SuggestedFollowsItem name={'Samet'} username={'jesuisamet'} avatar={'https://github.com/shadcn.png'} followers={300012} following={12}/>
-          <SuggestedFollowsItem name={'Samet'} username={'jesuisamet'} avatar={'https://github.com/shadcn.png'} followers={300012} following={12}/>
-          <SuggestedFollowsItem name={'Samet'} username={'jesuisamet'} avatar={'https://github.com/shadcn.png'} followers={300012} following={12}/>
-          <SuggestedFollowsItem name={'Samet'} username={'jesuisamet'} avatar={'https://github.com/shadcn.png'} followers={300012} following={12}/>
-          <SuggestedFollowsItem name={'Samet'} username={'jesuisamet'} avatar={'https://github.com/shadcn.png'} followers={300012} following={12}/>
+          <Suspense fallback={<LoadingSkeleton avatar={true} className='ml-4' />}>
+            <SuggestedFollowsItem name={'Samet'} username={'jesuisamet'} avatar={'https://github.com/shadcn.png'} followers={300012} following={12}/>
+          </Suspense>
         </div>
         <Button variant='ghostV2' size='trendsLoad'>
           <Link href="/public">
