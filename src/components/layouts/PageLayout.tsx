@@ -1,7 +1,7 @@
 import Menu from '@/components/Menu'
 import SideBar from '@/components/SideBar'
 
-const PageLayout = ({
+const PageLayout = async({
   children,
 }: Readonly<{
   children: React.ReactNode;

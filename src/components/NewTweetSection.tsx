@@ -3,11 +3,15 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Image, MapPin, Smile } from 'lucide-react'
 
-const NewTweetSection = () => {
+interface NewTweetSectionProps {
+  avatar: string
+}
+
+const NewTweetSection = async({ avatar } : NewTweetSectionProps ) => {
   return (
     <div className='flex flex-row items-start w-full'>
       <Avatar className='size-12 mr-2'>
-        <AvatarImage src="https://github.com/shadcn.png"/>
+        <AvatarImage src={avatar}/>
         <AvatarFallback></AvatarFallback>
       </Avatar>
       <div className='flex flex-col w-full'>

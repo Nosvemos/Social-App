@@ -17,8 +17,20 @@ import MenuAvatar from '@/components/MenuAvatar'
 import ThemeToggle from '@/components/ThemeToggle'
 import { Suspense } from 'react'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
+import { currentUser } from '@clerk/nextjs/server'
+import { getUserByClerkId, syncUser } from '@/actions/user'
 
-const Menu = ()=> {
+const Menu = async()=> {
+  let user = null;
+
+  const authUser = await currentUser();
+  if(authUser) {
+    await syncUser();
+    user = await getUserByClerkId(authUser.id);
+  }
+
+  if(!user) return null;
+
   return (
     <div className='flex flex-col max-md:justify-center max-md:items-center my-2 gap-3.5'>
       <ThemeToggle />
@@ -98,7 +110,7 @@ const Menu = ()=> {
       </Button>
 
       <Suspense fallback={<LoadingSkeleton avatar={true} />}>
-        <MenuAvatar/>
+        <MenuAvatar name={user.name ?? 'User'} username={user.username}/>
       </Suspense>
     </div>
   )
