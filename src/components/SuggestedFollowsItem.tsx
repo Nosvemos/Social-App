@@ -3,15 +3,18 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
 import { kFormatter } from '@/lib/utils'
+import FollowButton from '@/components/FollowButton'
 
 interface SuggestedFollowsItemProps {
-  name: string,
-  username: string,
-  avatar: string,
+  userId: string
+  name: string | null,
+  username: string | null,
+  avatar: string | null,
+  bio?: string | null,
   followers: number,
   following: number,
 }
-const SuggestedFollowsItem = ({ name, username, avatar, followers, following } : SuggestedFollowsItemProps) => {
+const SuggestedFollowsItem = ({ userId, name, username, avatar, bio, followers, following } : SuggestedFollowsItemProps) => {
   return (
     <HoverCard>
       <div className='flex flex-row gap-x-4'>
@@ -19,7 +22,7 @@ const SuggestedFollowsItem = ({ name, username, avatar, followers, following } :
           <Button variant="link" asChild>
             <div className='flex flex-row gap-4 mr-auto'>
               <Avatar>
-                <AvatarImage src={avatar} />
+                <AvatarImage src={avatar ?? ''} />
                 <AvatarFallback></AvatarFallback>
               </Avatar>
               <div className='flex flex-col items-start max-xl:hidden'>
@@ -29,26 +32,24 @@ const SuggestedFollowsItem = ({ name, username, avatar, followers, following } :
             </div>
           </Button>
         </HoverCardTrigger>
-        <Button className='mr-auto rounded-full'>Follow</Button>
+        <FollowButton type={'follow'} userId={userId} className='mr-auto'/>
       </div>
       <HoverCardContent className="w-80">
         <div className="flex flex-row justify-center space-x-4 mb-4">
           <Link href={`/${username}`}>
             <Avatar className='size-16'>
-              <AvatarImage src={avatar} />
+              <AvatarImage src={avatar ?? ''} />
               <AvatarFallback></AvatarFallback>
             </Avatar>
           </Link>
-          <Button className='ml-auto rounded-full'>Follow</Button>
+          <FollowButton type={'follow'} userId={userId} className='ml-auto'/>
         </div>
         <div className="flex flex-col">
           <Link href={`/${username}`}>
             <h4 className="text-md font-semibold">{name}</h4>
           </Link>
           <h4 className="text-md text-neutral-500">@{username}</h4>
-          <p className="text-md my-2">
-            Bio.
-          </p>
+          <p className="text-md my-2">{bio}</p>
           <div className="flex items-center pt-2 gap-4">
             <div className='space-x-1'>
               <span className='font-semibold'>{kFormatter(following)}</span>

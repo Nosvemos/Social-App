@@ -15,7 +15,7 @@ const Feed = async() => {
   return (
     <>
       <div className="flex flex-col mt-5 px-10 md:px-20">
-        <NewTweetSection avatar={user.image} />
+        <NewTweetSection avatar={user.image ?? ''} />
       </div>
       <Separator className='my-4'/>
     </>
