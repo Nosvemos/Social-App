@@ -24,13 +24,13 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relations
-  posts    Post[]
-  comments Comment[]
-  likes    Like[]
+  // Relations:
+  posts    Post[] // One-to-many
+  comments Comment[] // One-to-many
+  likes    Like[] // One-to-many
 
-  followers Follow[] @relation("userFollowing")
-  following Follow[] @relation("userFollowers")
+  followers Follow[] @relation("following")
+  following Follow[] @relation("follower")
 
   notifications        Notification[] @relation("userNotifications")
   notificationsCreated Notification[] @relation("notificationCreator")
@@ -45,8 +45,7 @@ model Post {
   updatedAt DateTime @updatedAt
 
   // Relations
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
-
+  author        User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comments      Comment[]
   likes         Like[]
   notifications Notification[]
@@ -58,39 +57,27 @@ model Comment {
   authorId  String
   postId    String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   // Relations
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-
-  // Yeni eklenen kısım
-  likes Like[]
-
+  author        User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post          Post           @relation(fields: [postId], references: [id], onDelete: Cascade)
   notifications Notification[]
 
   @@index([authorId, postId])
 }
 
 model Like {
-  id            String        @id @default(cuid())
-  userId        String
-  likedItemId   String
-  likedItemType LikedItemType
-  createdAt     DateTime      @default(now())
+  id        String   @id @default(cuid())
+  postId    String
+  userId    String
+  createdAt DateTime @default(now())
 
   // Relations
-  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post    Post?    @relation(fields: [likedItemId], references: [id], onDelete: Cascade, map: "Like_post_fkey")
-  comment Comment? @relation(fields: [likedItemId], references: [id], onDelete: Cascade, map: "Like_comment_fkey")
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
-  @@index([userId, likedItemId])
-  @@unique([userId, likedItemId, likedItemType])
-}
-
-enum LikedItemType {
-  POST
-  COMMENT
+  @@index([userId, postId])
+  @@unique([userId, postId])
 }
 
 model Follow {
@@ -99,11 +86,11 @@ model Follow {
   createdAt   DateTime @default(now())
 
   // Relations
-  follower  User @relation("userFollowers", fields: [followerId], references: [id], onDelete: Cascade)
-  following User @relation("userFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+  follower  User @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
 
-  @@index([followerId, followingId]) // Composite index for faster queries
-  @@unique([followerId, followingId]) // Composite primary key prevents duplicate follows
+  @@index([followerId, followingId])
+  @@unique([followerId, followingId])
 }
 
 model Notification {

@@ -1,9 +1,14 @@
 import NewTweetSection from '@/components/NewTweetSection'
-import { Separator } from '@/components/ui/separator'
 import { currentUser } from '@clerk/nextjs/server'
-import { getUserByClerkId } from '@/actions/user'
+import { getDbUserId, getUserByClerkId } from '@/actions/user'
+import Tweet from '@/components/Tweet'
+import LoadingSpinner from '@/components/LoadingSpinner'
+import { Suspense } from 'react'
+import { getPosts } from '@/actions/post'
 
 const Feed = async() => {
+  const dbUserId = await getDbUserId();
+
   let user = null;
 
   const authUser = await currentUser();
@@ -12,12 +17,16 @@ const Feed = async() => {
   }
 
   if(!user) return null;
+
+  const posts = await getPosts();
   return (
     <>
-      <div className="flex flex-col mt-5 px-10 md:px-20">
-        <NewTweetSection avatar={user.image ?? ''} />
-      </div>
-      <Separator className='my-4'/>
+      <NewTweetSection avatar={user.image ?? ''} />
+      <Suspense fallback={<LoadingSpinner size={26}/>}>
+        {posts.map(post => (
+          <Tweet key={post.id} post={post} dbUserId={dbUserId}/>
+        ))}
+      </Suspense>
     </>
   )
 }
