@@ -18,9 +18,9 @@ const FollowButton = ({userId, className, type} : FollowButtonProps) => {
     setIsLoading(true)
     try {
       await toggleFollow(userId);
-      toast(`User ${type}ed successfully`);
+      toast(`The user has been successfully ${type}ed.`);
     } catch {
-      toast(`Error while ${type}ing user.`)
+      toast(`The user could not be ${type}ed, please try again later.`);
     } finally {
       setIsLoading(false)
     }

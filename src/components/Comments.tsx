@@ -11,18 +11,18 @@ import { getPosts } from '@/actions/post'
 import CommentItem from '@/components/CommentItem'
 import NewComment from '@/components/NewComment'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { formatDistanceToNow } from 'date-fns'
 import { Separator } from '@/components/ui/separator'
+import { formatTimeDifference } from '@/lib/utils'
 
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
 
-const Comments = ({ post }: { post: Post }) => {
+const Comments = ({ post, hasCommented }: { post: Post, hasCommented: boolean }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant='iconButton' size='icon' className='rounded-full'>
-          <MessageCircle/>
+          <MessageCircle className={hasCommented ? 'fill-current text-blue-400' : ''}/>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -42,15 +42,15 @@ const Comments = ({ post }: { post: Post }) => {
                     <AvatarFallback></AvatarFallback>
                   </Avatar>
                 </div>
-                <div className='flex flex-col gap-0.5'>
-                  <div className='flex flex-row gap-2 text-xs md:text-base'>
+                <div className='flex flex-col gap-0.5 w-full'>
+                  <div className='flex flex-row gap-2'>
                     <span className='font-semibold'>{post.author.name}</span>
                     <span className='text-neutral-500'>@{post.author.username}</span>
                     <span className='text-neutral-500'>·</span>
-                    <span className='text-neutral-500'>{formatDistanceToNow(new Date(post.createdAt))} ago</span>
+                    <span className='text-neutral-500'>{formatTimeDifference(new Date(post.createdAt))} ago</span>
                   </div>
                   <p className="break-all whitespace-pre md:whitespace-normal mr-auto">{post.content} {post.image ?? ''}</p>
-                  <p className="text-neutral-500 text-sm mt-2 mr-auto">Replying to <span className='text-blue-400'>@{post.author.username}</span></p>
+                  <p className="text-neutral-500 text-sm my-2 mr-auto">Replying to <span className='text-blue-400'>@{post.author.username}</span></p>
                 </div>
               </div>
               <NewComment postId={post.id} />

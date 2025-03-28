@@ -221,3 +221,51 @@ export async function createComment(postId: string, prevState: FormState, formDa
     return { success: false, error: "Failed to create comment" };
   }
 }
+
+export async function deletePost(postId: string) {
+  try {
+    const userId = await getDbUserId();
+
+    const post = await prisma.post.findUnique({
+      where: { id: postId },
+      select: { authorId: true },
+    });
+
+    if (!post) throw new Error("Post not found");
+    if (post.authorId !== userId) throw new Error("Unauthorized - No permission");
+
+    await prisma.post.delete({
+      where: { id: postId },
+    });
+
+    revalidatePath("/");
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to delete post:", error);
+    return { success: false, error: "Failed to delete post" };
+  }
+}
+
+export async function deleteComment(commentId: string) {
+  try {
+    const userId = await getDbUserId();
+
+    const comment = await prisma.comment.findUnique({
+      where: { id: commentId },
+      select: { authorId: true },
+    });
+
+    if (!comment) throw new Error("Comment not found");
+    if (comment.authorId !== userId) throw new Error("Unauthorized - No permission");
+
+    await prisma.comment.delete({
+      where: { id: commentId },
+    });
+
+    revalidatePath("/");
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to delete comment:", error);
+    return { success: false, error: "Failed to delete comment" };
+  }
+}

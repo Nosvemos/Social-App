@@ -34,6 +34,7 @@ const buttonVariants = cva(
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
         menuIcon: "size-15 rounded-full",
+        deleteIcon: "rounded-full px-1",
         menuItem: "h-9 px-4 py-6 has-[>svg]:px-3 rounded-full",
         trendsItem: "px-4 py-3 rounded-none",
         trendsLoad: "px-4 py-3 w-full justify-start rounded-t-none"

@@ -22,7 +22,7 @@ const SuggestedFollowsCard = async () => {
           ))}
         </div>
         <Button variant='ghostV2' size='trendsLoad'>
-          <Link href="/public">
+          <Link href="/">
             <span className='text-blue-400 hover:text-blue-400'>Show more</span>
           </Link>
         </Button>
