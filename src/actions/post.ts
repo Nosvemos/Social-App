@@ -3,16 +3,16 @@
 import { getDbUserId } from '@/actions/user'
 import prisma from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
-import { toast } from 'sonner'
 
 export interface FormState {
   success?: boolean;
   error?: string;
   message?: string;
   post?: unknown;
+  comment?: unknown;
 }
 
-export async function createPost (prevState: FormState | null, formData: FormData): Promise<FormState> {
+export async function createPost (prevState: FormState, formData: FormData) {
   const content = formData.get('content') as string;
   const imageFile = formData.get('image') as File | null;
 
@@ -167,5 +167,57 @@ export async function toggleLike(postId: string) {
   } catch (error) {
     console.error("Failed to toggle like:", error);
     return { success: false, error: "Failed to toggle like" };
+  }
+}
+
+export async function createComment(postId: string, prevState: FormState, formData: FormData) {
+  try {
+    const userId = await getDbUserId();
+    const content = formData.get('content') as string;
+
+    if (!userId) return;
+    if (!content || content.trim() === '') {
+      return {
+        success: false,
+        error: 'Comment cannot be empty',
+      };
+    }
+
+    const post = await prisma.post.findUnique({
+      where: { id: postId },
+      select: { authorId: true },
+    });
+
+    if (!post) throw new Error("Post not found");
+
+    const [comment] = await prisma.$transaction(async (tx) => {
+      const newComment = await tx.comment.create({
+        data: {
+          content,
+          authorId: userId,
+          postId,
+        },
+      });
+
+      if (post.authorId !== userId) {
+        await tx.notification.create({
+          data: {
+            type: "COMMENT",
+            userId: post.authorId,
+            creatorId: userId,
+            postId,
+            commentId: newComment.id,
+          },
+        });
+      }
+
+      return [newComment];
+    });
+
+    revalidatePath('/');
+    return { success: true, comment };
+  } catch (error) {
+    console.error("Failed to create comment:", error);
+    return { success: false, error: "Failed to create comment" };
   }
 }

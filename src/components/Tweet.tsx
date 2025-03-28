@@ -3,11 +3,12 @@
 import { Separator } from '@/components/ui/separator'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { ChartNoAxesColumn, Heart, MessageCircle, Repeat } from 'lucide-react'
+import { ChartNoAxesColumn, Heart, Repeat } from 'lucide-react'
 import { getPosts, toggleLike } from '@/actions/post'
 import { formatDistanceToNow } from "date-fns";
 import { kFormatter } from '@/lib/utils'
 import { useState } from 'react'
+import Comments from '@/components/Comments'
 
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
@@ -42,36 +43,34 @@ const Tweet = ({ post, dbUserId }: { post: Post; dbUserId: string | null }) => {
             <AvatarFallback></AvatarFallback>
           </Avatar>
           <div className='flex flex-col gap-0.5'>
-            <div className='flex flex-row gap-2'>
+            <div className='flex flex-row gap-2 text-sm md:text-base'>
               <span className='font-semibold'>{post.author.name}</span>
               <span className='text-neutral-500'>@{post.author.username}</span>
               <span className='text-neutral-500'>·</span>
               <span className='text-neutral-500'>{formatDistanceToNow(new Date(post.createdAt))} ago</span>
             </div>
-            <span>{post.content}</span>
+            <p className="break-all whitespace-pre md:whitespace-normal text-sm md:text-base">{post.content}</p>
             {post.image && (
               <img src={post.image} className='max-w-full md:max-w-5/6 h-auto border rounded-xl mt-2' alt='image'></img>
             )}
             <div className='flex flex-row max-w-5/6 justify-between'>
-              <div className='flex flex-row items-center justify-center hover:text-blue-400 text-zinc-500'>
-                <Button variant='iconButton' size='icon' className='rounded-full'>
-                  <MessageCircle/>
-                </Button>
+              <div className='flex flex-row items-center justify-center hover:text-blue-400 text-neutral-500'>
+                <Comments post={post}/>
                 <span>{kFormatter(post._count.comments)}</span>
               </div>
-              <div className='flex flex-row items-center justify-center hover:text-green-400 text-zinc-500'>
+              <div className='flex flex-row items-center justify-center hover:text-green-400 text-neutral-500'>
                 <Button variant='repeatButton' size='icon' className='rounded-full' disabled>
                   <Repeat/>
                 </Button>
                 <span>?</span>
               </div>
-              <div className='flex flex-row items-center justify-center hover:text-red-400'>
+              <div className='flex flex-row items-center justify-center hover:text-red-400 text-neutral-500'>
                 <Button variant='heartButton' size='icon' className='rounded-full' onClick={handleLike}>
-                  <Heart className={hasLiked ? 'fill-current text-red-400' : 'text-zinc-500'} />
+                  <Heart className={hasLiked ? 'fill-current text-red-400' : ''} />
                 </Button>
-                <span className={hasLiked ? 'text-red-400' : 'text-zinc-500'}>{kFormatter(optimisticLikes)}</span>
+                <span className={hasLiked ? 'text-red-400' : ''}>{kFormatter(optimisticLikes)}</span>
               </div>
-              <div className='flex flex-row items-center justify-center hover:text-blue-400 text-zinc-500'>
+              <div className='flex flex-row items-center justify-center hover:text-blue-400 text-neutral-500'>
                 <Button variant='iconButton' size='icon' className='rounded-full' disabled>
                   <ChartNoAxesColumn/>
                 </Button>
