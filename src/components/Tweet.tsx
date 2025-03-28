@@ -78,7 +78,7 @@ const Tweet = ({ post, dbUserId }: { post: Post; dbUserId: string | null }) => {
             )}
             <div className='flex flex-row w-full lg:max-w-2/3 xl:max-w-1/2 justify-between pt-1'>
               <div className='flex flex-row items-center justify-center hover:text-blue-400 text-neutral-500'>
-                <Comments hasCommented={hasCommented} post={post}/>
+                <Comments dbUserId={dbUserId} hasCommented={hasCommented} post={post}/>
                 <span className={hasCommented ? 'text-blue-400' : ''}>{kFormatter(post._count.comments)}</span>
               </div>
               <div className='flex flex-row items-center justify-center hover:text-green-400 text-neutral-500'>
@@ -88,7 +88,7 @@ const Tweet = ({ post, dbUserId }: { post: Post; dbUserId: string | null }) => {
                 <span>?</span>
               </div>
               <div className='flex flex-row items-center justify-center hover:text-red-400 text-neutral-500'>
-                <Button variant='heartButton' size='icon' className='rounded-full' onClick={handleLike}>
+                <Button variant='heartButton' size='icon' className='rounded-full' onClick={handleLike} disabled={!dbUserId}>
                   <Heart className={hasLiked ? 'fill-current text-red-400' : ''} />
                 </Button>
                 <span className={hasLiked ? 'text-red-400' : ''}>{kFormatter(optimisticLikes)}</span>

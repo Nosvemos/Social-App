@@ -3,6 +3,7 @@ import { Search } from 'lucide-react'
 import SubscribeCard from '@/components/SubscribeCard'
 import TrendsCard from '@/components/TrendsCard'
 import SuggestedFollowsCard from '@/components/SuggestedFollowsCard'
+import { SignedIn } from '@clerk/nextjs'
 
 const SideBar = () => {
   return (
@@ -17,7 +18,9 @@ const SideBar = () => {
       </div>
       <SubscribeCard/>
       <TrendsCard/>
-      <SuggestedFollowsCard/>
+      <SignedIn>
+        <SuggestedFollowsCard/>
+      </SignedIn>
     </div>
   )
 }

@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { useUser } from '@clerk/nextjs'
 
 const NewComment = ({ postId }: { postId: string }) => {
-  const { user } = useUser()
+  const { user, isSignedIn } = useUser()
 
   const initialState: FormState = {
     success: false,
@@ -30,6 +30,8 @@ const NewComment = ({ postId }: { postId: string }) => {
       toast('Your comment has been successfully created.');
     }
   }, [state]);
+
+  if(!isSignedIn) return null;
 
   return (
     <div className='flex flex-row items-start w-full'>

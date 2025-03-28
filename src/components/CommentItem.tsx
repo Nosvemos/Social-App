@@ -1,26 +1,32 @@
+'use client'
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { createComment, deleteComment } from '@/actions/post'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Loader2, Trash } from 'lucide-react'
 import { formatTimeDifference } from '@/lib/utils'
+import { useState } from 'react'
 
 type Comments = Awaited<ReturnType<typeof createComment>>;
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 type Comment = Comments[number];
 
-const CommentItem = ({ comment }: Comment) => {
-  let isDeleting = false;
+const CommentItem = ({ comment, dbUserId }: { comment: Comment, dbUserId: string | null }) => {
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const handleDeleteComment = async () => {
     try {
-      isDeleting = true;
+      setIsDeleting(true);
       const result = await deleteComment(comment.id);
-      if (result.success) toast("Your comment has been successfully deleted.");
-      else throw new Error(result.error);
+      if (result.success) {
+        toast.success("Your comment has been successfully deleted.");
+      } else {
+        throw new Error(result.error);
+      }
     } catch {
-      toast("Your comment could not be deleted, please try again later.");
-      isDeleting = false;
+      toast.error("Your comment could not be deleted, please try again later.");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -39,8 +45,14 @@ const CommentItem = ({ comment }: Comment) => {
             <span className="text-neutral-500">@{comment.author.username}</span>
             <span className="text-neutral-500">·</span>
             <span className="text-neutral-500">{formatTimeDifference(new Date(comment.createdAt))}</span>
-            {comment.author.id && (
-              <Button className='rounded-full ml-auto text-neutral-500' size='deleteIcon' variant='iconButton' onClick={handleDeleteComment}>
+            {dbUserId === comment.author.id && (
+              <Button
+                className='rounded-full ml-auto text-neutral-500'
+                size='deleteIcon'
+                variant='iconButton'
+                onClick={handleDeleteComment}
+                disabled={isDeleting}
+              >
                 {isDeleting ? (
                   <Loader2 className="animate-spin" />
                 ) : (

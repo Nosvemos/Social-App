@@ -10,7 +10,7 @@ const MenuAvatar = async ({ name, username } : MenuAvatarProps ) => {
     <div className='flex flex-row min-w-max'>
       <UserButton/>
       <div className='flex flex-col items-start max-xl:hidden ml-4'>
-        <span className='font-semibold'>{name}</span>
+        <span className='font-semibold'>{name ?? 'Undefined'}</span>
         <span className='text-neutral-500 text-sm'>@{username}</span>
       </div>
     </div>

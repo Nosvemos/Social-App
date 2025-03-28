@@ -17,7 +17,7 @@ interface SuggestedFollowsItemProps {
 const SuggestedFollowsItem = ({ userId, name, username, avatar, bio, followers, following } : SuggestedFollowsItemProps) => {
   return (
     <HoverCard>
-      <div className='flex flex-row gap-x-4'>
+      <div className='flex flex-row gap-x-4 w-full'>
         <HoverCardTrigger asChild>
           <Button variant="link" asChild>
             <div className='flex flex-row gap-4 mr-auto'>

@@ -17,7 +17,7 @@ import { formatTimeDifference } from '@/lib/utils'
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
 
-const Comments = ({ post, hasCommented }: { post: Post, hasCommented: boolean }) => {
+const Comments = ({ dbUserId, post, hasCommented }: { dbUserId: string | null, post: Post, hasCommented: boolean }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -59,7 +59,7 @@ const Comments = ({ post, hasCommented }: { post: Post, hasCommented: boolean })
                   <Separator className='mt-5'/>
                   <h1 className='font-semibold mt-4 text-left text-sm md:text-lg'>Comments ({post._count.comments})</h1>
                   {post.comments.map((comment) => (
-                    <CommentItem key={comment.id} comment={comment} />
+                    <CommentItem key={comment.id} comment={comment} dbUserId={dbUserId} />
                   ))}
                 </>
               )}

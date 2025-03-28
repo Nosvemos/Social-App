@@ -8,12 +8,11 @@ import { useActionState, useEffect, useState } from 'react'
 import { createPost, FormState } from '@/actions/post'
 import { toast } from "sonner"
 import { Separator } from '@/components/ui/separator'
+import { useUser } from '@clerk/nextjs'
 
-interface NewTweetSectionProps {
-  avatar: string
-}
+const NewTweetSection = () => {
+  const { isSignedIn, user } = useUser();
 
-const NewTweetSection = ({ avatar } : NewTweetSectionProps ) => {
   const initialState: FormState = {
     success: false,
     error: undefined,
@@ -46,12 +45,14 @@ const NewTweetSection = ({ avatar } : NewTweetSectionProps ) => {
     }
   };
 
+  if (!isSignedIn) return null;
+
   return (
     <>
       <div className="flex flex-col mt-5 px-5 md:px-20">
         <div className='flex flex-row items-start w-full'>
           <Avatar className='size-12 mr-2'>
-            <AvatarImage src={avatar}/>
+            <AvatarImage src={user?.imageUrl}/>
             <AvatarFallback></AvatarFallback>
           </Avatar>
           <div className='flex flex-col w-full'>

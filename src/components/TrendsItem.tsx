@@ -10,7 +10,7 @@ interface TrendsItemProps {
   href?: string,
 }
 
-const TrendsItem = ({ title, tag, postCount, href } : TrendsItemProps) => {
+const TrendsItem = async({ title, tag, postCount, href } : TrendsItemProps) => {
   return (
     <Button variant='ghostV2' size='trendsItem' asChild>
       <div className='flex flex-row items-center gap-4 p-3 rounded-lg'>
