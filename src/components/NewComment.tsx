@@ -44,7 +44,7 @@ const NewComment = ({ postId }: { postId: string }) => {
           <Textarea
             placeholder="Post your reply"
             name="content"
-            className='max-w-xs md:max-w-[450px] min-h-[100px] max-h-[200px] overflow-y-auto scrollbar-light dark:scrollbar-dark'
+            className='max-w-xs md:max-w-[450px] min-h-[50px] max-h-[200px] overflow-y-auto scrollbar'
           />
           {state?.error && (
             <div className="text-red-500 ml-2">

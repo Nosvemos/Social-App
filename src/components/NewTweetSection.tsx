@@ -60,7 +60,7 @@ const NewTweetSection = () => {
               <Textarea
                 placeholder="What's happening?"
                 name="content"
-                className='max-h-[80vh] overflow-y-auto scrollbar-light dark:scrollbar-dark'
+                className='max-h-[80vh] overflow-y-auto scrollbar'
                 disabled={isPending}
               />
               {state?.error && (

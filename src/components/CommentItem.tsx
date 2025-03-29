@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Loader2, Trash } from 'lucide-react'
 import { formatTimeDifference } from '@/lib/utils'
 import { useState } from 'react'
+import Link from 'next/link'
+import UserCard from '@/components/UserCard'
 
 type Comments = Awaited<ReturnType<typeof createComment>>;
 type Comment = Comments[number];
@@ -31,13 +33,17 @@ const CommentItem = ({ comment, dbUserId }: { comment: Comment, dbUserId: string
   };
 
   return (
-    <div className="overflow-y-auto max-h-[20rem] scrollbar-light dark:scrollbar-dark">
-      <div className="flex flex-row gap-4 my-6">
-        <div className="flex flex-col">
-          <Avatar>
-            <AvatarImage src={comment.author.image}/>
-            <AvatarFallback></AvatarFallback>
-          </Avatar>
+    <div className="overflow-y-auto max-h-[20rem] scrollbar">
+      <div className="flex flex-row gap-4 my-4 items-start">
+        <div className='self-start'>
+          <UserCard user={comment.author}>
+            <Link href={`/${comment.author.username}`}>
+              <Avatar>
+                <AvatarImage src={comment.author.image}/>
+                <AvatarFallback></AvatarFallback>
+              </Avatar>
+            </Link>
+          </UserCard>
         </div>
         <div className="flex flex-col gap-0.5 w-full">
           <div className="flex flex-row gap-2">

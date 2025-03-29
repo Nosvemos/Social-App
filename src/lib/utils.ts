@@ -34,3 +34,19 @@ export function formatTimeDifference(startDate: Date, endDate?: Date): string {
   if (weeks < 52) return format(endDate, 'd MMM');
   return format(endDate, 'd MMM yyyy');
 }
+
+export function smartTruncateString(str: string, maxLength: number = 30): string {
+  if (str.length <= maxLength) {
+    return str;
+  }
+
+  let truncated = str.substring(0, maxLength);
+
+  const lastSpaceIndex = truncated.lastIndexOf(' ');
+
+  if (lastSpaceIndex > 0) {
+    truncated = truncated.substring(0, lastSpaceIndex);
+  }
+
+  return truncated + "...";
+}

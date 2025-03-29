@@ -9,15 +9,15 @@ interface LoadingSkeletonProps {
 
 const LoadingSkeleton = ({ className, avatar, hasThird } : LoadingSkeletonProps) => {
   return (
-    <div className={cn(className, 'flex items-center space-x-4')}>
+    <div className={cn(className, 'flex items-center space-x-4 w-full')}>
       { avatar && (
         <Skeleton className='h-12 w-12 rounded-full' />
       )}
-      <div className="space-y-2 max-xl:hidden">
-        <Skeleton className="h-4 w-30" />
-        <Skeleton className="h-4 w-15" />
+      <div className="space-y-2 w-full">
+        <Skeleton className="h-4 w-1/4" />
+        <Skeleton className="h-4 w-1/6" />
         { hasThird && (
-          <Skeleton className="h-4 w-10" />
+          <Skeleton className="h-4 w-1/10" />
         )}
       </div>
     </div>

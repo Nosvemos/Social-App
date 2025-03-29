@@ -122,31 +122,16 @@
 }
 
 @layer utilities {
-  .scrollbar-dark::-webkit-scrollbar {
+  .scrollbar::-webkit-scrollbar {
     width: 3px;
   }
 
-  .scrollbar-dark::-webkit-scrollbar-track {
-    background: rgb(0, 0, 0);
-    height: 100%;
-  }
-
-  .scrollbar-dark::-webkit-scrollbar-thumb {
-    background: oklch(1 0 0);
-    border-radius: 5px;
-    height: 30% !important;
-  }
-
-  .scrollbar-light::-webkit-scrollbar {
-    width: 3px;
-  }
-
-  .scrollbar-light::-webkit-scrollbar-track {
+  .scrollbar::-webkit-scrollbar-track {
     background: oklch(1 0 0);
     height: 100%;
   }
 
-  .scrollbar-light::-webkit-scrollbar-thumb {
+  .scrollbar::-webkit-scrollbar-thumb {
     background: oklch(0 0 0);
     border-radius: 5px;
     height: 30% !important;

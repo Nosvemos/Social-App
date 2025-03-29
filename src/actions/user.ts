@@ -51,6 +51,23 @@ export async function getUserByClerkId(clerkId: string) {
   })
 }
 
+export async function getUserByDbId (id: string) {
+  return prisma.user.findUnique({
+    where: {
+      id
+    },
+    include: {
+      _count: {
+        select: {
+          followers: true,
+          following: true,
+          posts: true
+        }
+      }
+    }
+  })
+}
+
 export async function getDbUserId() {
   const { userId: clerkId } = await auth();
   if (!clerkId) return null;

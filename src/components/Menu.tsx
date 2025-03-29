@@ -50,7 +50,7 @@ const Menu = async()=> {
       />
 
       <MenuItem
-        href="/"
+        href="/notifications"
         icon={Bell}
         label="Notifications"
       />
@@ -92,7 +92,7 @@ const Menu = async()=> {
       />
 
       <MenuItem
-        href="/"
+        href={user ? `/${user.username}` : '/'}
         icon={User}
         label="Profile"
       />
@@ -125,7 +125,7 @@ const Menu = async()=> {
               className={`flex items-center gap-5 w-fit`}
             >
               <LogIn className="size-6" />
-              <span className='text-xl font-semibold mr-5 block max-xl:hidden font-thin'>
+              <span className='text-xl mr-5 block max-xl:hidden font-thin'>
                 Sign in
               </span>
             </Link>
@@ -138,7 +138,7 @@ const Menu = async()=> {
               className={`flex items-center gap-5 w-fit`}
             >
               <UserPlus className="size-6" />
-              <span className='text-xl font-semibold mr-5 block max-xl:hidden font-thin'>
+              <span className='text-xl mr-5 block max-xl:hidden font-thin'>
                 Sign Up
               </span>
             </Link>

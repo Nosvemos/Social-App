@@ -18,13 +18,13 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+          "hover:bg-neutral-200/70 hover:text-accent-foreground dark:hover:bg-accent/30",
         ghostV2:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/15",
+          "hover:bg-neutral-200/80 hover:text-accent-foreground dark:hover:bg-accent/20",
         link: "text-primary underline-offset-4 hover:underline",
-        iconButton: 'hover:bg-blue-400/20 hover:text-blue-400',
-        repeatButton: 'hover:bg-green-400/20 hover:text-green-400',
-        heartButton: 'hover:bg-red-400/20 hover:text-red-400',
+        iconButton: 'hover:bg-blue-500/20 hover:text-blue-500',
+        repeatButton: 'hover:bg-green-500/20 hover:text-green-500',
+        heartButton: 'hover:bg-red-500/20 hover:text-red-500',
         reverseIconButton: 'hover:bg-blue-400/20 text-blue-400 rounded-full',
         blueButton: 'bg-blue-400 hover:bg-blue-400/90 text-white text-md font-bold rounded-full'
       },
@@ -37,7 +37,8 @@ const buttonVariants = cva(
         deleteIcon: "rounded-full px-1",
         menuItem: "h-9 px-4 py-6 has-[>svg]:px-3 rounded-full",
         trendsItem: "px-4 py-3 rounded-none",
-        trendsLoad: "px-4 py-3 w-full justify-start rounded-t-none"
+        trendsLoad: "px-4 py-3 w-full justify-start rounded-t-none",
+        notificationItem: "p-3 rounded-none",
       },
     },
     defaultVariants: {

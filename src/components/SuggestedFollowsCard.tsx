@@ -17,7 +17,7 @@ const SuggestedFollowsCard = async () => {
         <div className='flex flex-col mb-2 gap-8'>
           {users.map((user) => (
             <Suspense key={user.id} fallback={<LoadingSkeleton avatar={true} className='ml-4' />}>
-              <SuggestedFollowsItem userId={user.id} name={user.name} username={user.username} bio={user.bio} avatar={user.image} followers={user._count.followers} following={user._count.following}/>
+              <SuggestedFollowsItem user={user}/>
             </Suspense>
           ))}
         </div>

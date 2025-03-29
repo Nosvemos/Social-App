@@ -69,7 +69,15 @@ export async function getPosts () {
             id: true,
             name: true,
             username: true,
-            image: true
+            image: true,
+            bio: true,
+            _count: {
+              select: {
+                followers: true,
+                following: true,
+                posts: true
+              }
+            }
           }
         },
         comments: {
@@ -79,7 +87,15 @@ export async function getPosts () {
                 id: true,
                 name: true,
                 username: true,
-                image: true
+                image: true,
+                bio: true,
+                _count: {
+                  select: {
+                    followers: true,
+                    following: true,
+                    posts: true
+                  }
+                }
               }
             }
           },

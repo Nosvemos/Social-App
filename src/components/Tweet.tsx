@@ -9,6 +9,8 @@ import { formatTimeDifference, kFormatter } from '@/lib/utils'
 import { useState } from 'react'
 import Comments from '@/components/Comments'
 import { toast } from 'sonner'
+import UserCard from '@/components/UserCard'
+import Link from 'next/link'
 
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
@@ -51,11 +53,17 @@ const Tweet = ({ post, dbUserId }: { post: Post; dbUserId: string | null }) => {
   return (
     <>
       <div className='flex flex-col mt-5 px-5 md:px-20'>
-        <div className='flex flex-row gap-4'>
-          <Avatar>
-            <AvatarImage src={post.author.image ?? ''} />
-            <AvatarFallback></AvatarFallback>
-          </Avatar>
+        <div className='flex flex-row gap-4 items-start'>
+          <div className='self-start'>
+            <UserCard user={post.author}>
+              <Link href={`/${post.author.username}`}>
+                <Avatar>
+                  <AvatarImage src={post.author.image ?? ''} />
+                  <AvatarFallback></AvatarFallback>
+                </Avatar>
+              </Link>
+            </UserCard>
+          </div>
           <div className='flex flex-col gap-0.5 w-full'>
             <div className='flex flex-row gap-2 text-sm md:text-base'>
               <span className='font-semibold'>{post.author.name}</span>
@@ -81,17 +89,17 @@ const Tweet = ({ post, dbUserId }: { post: Post; dbUserId: string | null }) => {
                 <Comments dbUserId={dbUserId} hasCommented={hasCommented} post={post}/>
                 <span className={hasCommented ? 'text-blue-400' : ''}>{kFormatter(post._count.comments)}</span>
               </div>
-              <div className='flex flex-row items-center justify-center hover:text-green-400 text-neutral-500'>
+              <div className='flex flex-row items-center justify-center hover:text-green-500 text-neutral-500'>
                 <Button variant='repeatButton' size='icon' className='rounded-full' disabled>
                   <Repeat/>
                 </Button>
                 <span>?</span>
               </div>
-              <div className='flex flex-row items-center justify-center hover:text-red-400 text-neutral-500'>
+              <div className='flex flex-row items-center justify-center hover:text-red-500 text-neutral-500'>
                 <Button variant='heartButton' size='icon' className='rounded-full' onClick={handleLike} disabled={!dbUserId}>
-                  <Heart className={hasLiked ? 'fill-current text-red-400' : ''} />
+                  <Heart className={hasLiked ? 'fill-current text-red-500' : ''} />
                 </Button>
-                <span className={hasLiked ? 'text-red-400' : ''}>{kFormatter(optimisticLikes)}</span>
+                <span className={hasLiked ? 'text-red-500' : ''}>{kFormatter(optimisticLikes)}</span>
               </div>
               <div className='flex flex-row items-center justify-center hover:text-blue-400 text-neutral-500'>
                 <Button variant='iconButton' size='icon' className='rounded-full' disabled>
