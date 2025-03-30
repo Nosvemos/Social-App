@@ -35,21 +35,21 @@ const Profile = async ({
         </TabsList>
         <TabsContent value="posts">
           {posts.length > 0 ? (
-            posts.map((post) => <Tweet key={post.id} post={post} dbUserId={dbUserId} className={'pt-4'} />)
+            posts.map((post) => <Tweet key={post.id} post={post} dbUserId={dbUserId} className={'px-5 mt-5'} />)
           ) : (
             <div className="text-center py-8 text-muted-foreground">No posts yet</div>
           )}
         </TabsContent>
         <TabsContent value="replies">
           {repliedPosts.length > 0 ? (
-            repliedPosts.map((post) => <RepliedTweet key={post.id} post={post} userId={user.id} dbUserId={dbUserId} />)
+            repliedPosts.map((post) => <RepliedTweet key={post.id} post={post} userId={user.id} dbUserId={dbUserId} className={'px-5 mt-5'} />)
           ) : (
             <div className="text-center py-8 text-muted-foreground">No replied posts to show</div>
           )}
         </TabsContent>
         <TabsContent value="likes">
           {likedPosts.length > 0 ? (
-            likedPosts.map((post) => <Tweet key={post.id} post={post} dbUserId={dbUserId} className={'pt-4'} />)
+            likedPosts.map((post) => <Tweet key={post.id} post={post} dbUserId={dbUserId} className={'px-5 mt-5'} />)
           ) : (
             <div className="text-center py-8 text-muted-foreground">No liked posts to show</div>
           )}

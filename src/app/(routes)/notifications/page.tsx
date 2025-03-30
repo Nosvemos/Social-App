@@ -1,7 +1,14 @@
 import PageLayout from '@/components/layouts/PageLayout'
 import Notifications from '@/components/Notifications'
 
-const Page = () => {
+export async function generateMetadata() {
+  return {
+    title: `Social App | Notifications`,
+    description: `Notifications page`,
+  };
+}
+
+const NotificationsPage = () => {
   return (
     <PageLayout>
       <Notifications />
@@ -9,4 +16,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default NotificationsPage
