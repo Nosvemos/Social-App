@@ -17,7 +17,17 @@ export async function syncUser() {
       }
     })
 
-    if (existingUser) return existingUser;
+    if (existingUser) return await prisma.user.update({
+      where: {
+        clerkId: userId
+      },
+      data: {
+        name: user.fullName,
+        username: user.username ?? user.emailAddresses[0].emailAddress.split("@")[0],
+        email: user.emailAddresses[0].emailAddress,
+        image: user.imageUrl
+      }
+    });
 
     return await prisma.user.create({
       data: {
@@ -25,7 +35,8 @@ export async function syncUser() {
         name: user.fullName,
         username: user.username ?? user.emailAddresses[0].emailAddress.split("@")[0],
         email: user.emailAddresses[0].emailAddress,
-        image: user.imageUrl
+        image: user.imageUrl,
+        bio: 'Bio'
       }
     });
 
