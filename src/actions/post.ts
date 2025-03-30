@@ -122,6 +122,71 @@ export async function getPosts () {
   }
 }
 
+export async function getPostById (postId: string) {
+  try {
+    return await prisma.post.findUnique({
+      where: {
+        id: postId
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            username: true,
+            image: true,
+            bio: true,
+            _count: {
+              select: {
+                followers: true,
+                following: true,
+                posts: true
+              }
+            }
+          }
+        },
+        comments: {
+          include: {
+            author: {
+              select: {
+                id: true,
+                name: true,
+                username: true,
+                image: true,
+                bio: true,
+                _count: {
+                  select: {
+                    followers: true,
+                    following: true,
+                    posts: true
+                  }
+                }
+              }
+            }
+          },
+          orderBy: {
+            createdAt: "asc"
+          }
+        },
+        likes: {
+          select: {
+            userId: true
+          }
+        },
+        _count: {
+          select: {
+            likes: true,
+            comments: true
+          }
+        }
+      }
+    })
+  } catch (error) {
+    console.error('Error in getPostById:', error);
+    throw new Error('Failed to fetch post');
+  }
+}
+
 export async function toggleLike(postId: string) {
   try {
     const userId = await getDbUserId();

@@ -38,7 +38,9 @@ const buttonVariants = cva(
         menuItem: "h-9 px-4 py-6 has-[>svg]:px-3 rounded-full",
         trendsItem: "px-4 py-3 rounded-none",
         trendsLoad: "px-4 py-3 w-full justify-start rounded-t-none",
+        tweetItem: "p-4 rounded-md",
         notificationItem: "p-3 rounded-none",
+        avatar: 'rounded-full size-12'
       },
     },
     defaultVariants: {
