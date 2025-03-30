@@ -19,9 +19,7 @@ const NewTweetSection = () => {
     message: undefined,
     post: undefined
   };
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  
   const [state, formAction, isPending] = useActionState<FormState, FormData>(createPost, initialState);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 

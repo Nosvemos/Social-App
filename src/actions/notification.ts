@@ -18,6 +18,7 @@ export async function getNotifications() {
             id: true,
             name: true,
             username: true,
+            bio: true,
             image: true,
             _count: {
               select: {

@@ -59,16 +59,17 @@ const NotificationItem = ({notification}: { notification: Notification }) => {
             <div className='flex flex-row gap-2 text-sm md:text-base items-center'>
               {getNotificationIcon(notification.type)}
               <span className='font-semibold'>{notification.creator.name}</span>
-              <p className="break-all whitespace-pre md:whitespace-normal text-sm md:text-base font-normal text-neutral-500">
+              <p className="break-all whitespace-normal text-sm md:text-base font-normal text-neutral-500">
                 <span>{ getNotificationMessage(notification.type) }</span>
               </p>
             </div>
-            {notification.post && (notification.type === "LIKE" || notification.type === "RETWEET") && (
+            {/*{notification.post && (notification.type === "LIKE" || notification.type === "RETWEET") && (*/}
+            {notification.post && notification.type === "LIKE" && (
               <div className='space-y-1 mb-1'>
                 <div className="text-sm text-muted-foreground rounded-md mt-2">
                   <div className="text-neutral-500 font-normal">
                     {notification.post.content && (
-                      <p className='break-all whitespace-pre md:whitespace-normal text-sm md:text-base'>{smartTruncateString(notification.post.content, 200)}</p>
+                      <p className='break-all whitespace-normal text-sm md:text-base'>{smartTruncateString(notification.post.content, 200)}</p>
                     )}
                     {notification.post.image && (
                       <img
@@ -85,7 +86,7 @@ const NotificationItem = ({notification}: { notification: Notification }) => {
                 <div className="text-sm text-muted-foreground rounded-md mt-2">
                   <div className="text-neutral-500 font-normal">
                     {notification.post.content && (
-                      <p className='break-all whitespace-pre md:whitespace-normal text-sm md:text-base'>{smartTruncateString(notification.post.content, 200)}</p>
+                      <p className='break-all whitespace-normal text-sm md:text-base'>{smartTruncateString(notification.post.content, 200)}</p>
                     )}
                     {notification.post.image && (
                       <img

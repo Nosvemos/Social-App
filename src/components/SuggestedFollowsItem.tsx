@@ -21,7 +21,7 @@ const SuggestedFollowsItem = ({ user } : {user: User}) => {
             <span className='text-neutral-500 text-sm'>@{user.username}</span>
           </div>
           <div className='flex flex-col w-full'>
-            <FollowButton type={'follow'} userId={user.id} className='ml-auto'/>
+            <FollowButton userId={user.id} className='ml-auto'/>
           </div>
         </div>
       </Button>

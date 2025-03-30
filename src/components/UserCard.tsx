@@ -4,6 +4,7 @@ import FollowButton from '@/components/FollowButton'
 import Link from 'next/link'
 import { kFormatter } from '@/lib/utils'
 import { getRandomUsers } from '@/actions/user'
+import { SignedIn } from '@clerk/nextjs'
 
 type Users = Awaited<ReturnType<typeof getRandomUsers>>;
 type User = Users[number];
@@ -12,7 +13,7 @@ const UserCard = ({
   children, user
 }: {
   children: React.ReactNode;
-  dbUserId: User;
+  user: User;
 }) => {
   return (
     <HoverCard>
@@ -20,14 +21,16 @@ const UserCard = ({
         {children}
       </HoverCardTrigger>
       <HoverCardContent className="w-80">
-        <div className="flex flex-row justify-center space-x-4 mb-4">
+        <div className="flex flex-row justify-start space-x-4 mb-4">
           <Link href={`/${user.username}`}>
             <Avatar className='size-16'>
               <AvatarImage src={user.image ?? ''} />
               <AvatarFallback></AvatarFallback>
             </Avatar>
           </Link>
-          <FollowButton type={'follow'} userId={user.id} className='ml-auto'/>
+          <SignedIn>
+            <FollowButton userId={user.id} className='ml-auto'/>
+          </SignedIn>
         </div>
         <div className="flex flex-col">
           <Link href={`/${user.username}`}>

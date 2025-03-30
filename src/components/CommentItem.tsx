@@ -1,7 +1,7 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { createComment, deleteComment } from '@/actions/post'
+import { deleteComment, getPosts } from '@/actions/post'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Loader2, Trash } from 'lucide-react'
@@ -10,7 +10,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import UserCard from '@/components/UserCard'
 
-type Comments = Awaited<ReturnType<typeof createComment>>;
+type Comments = Awaited<ReturnType<typeof getPosts>>;
 type Comment = Comments[number];
 
 const CommentItem = ({ comment, dbUserId }: { comment: Comment, dbUserId: string | null }) => {
@@ -39,7 +39,7 @@ const CommentItem = ({ comment, dbUserId }: { comment: Comment, dbUserId: string
           <UserCard user={comment.author}>
             <Link href={`/${comment.author.username}`}>
               <Avatar>
-                <AvatarImage src={comment.author.image}/>
+                <AvatarImage src={comment.author.image ?? ''}/>
                 <AvatarFallback></AvatarFallback>
               </Avatar>
             </Link>
@@ -67,7 +67,7 @@ const CommentItem = ({ comment, dbUserId }: { comment: Comment, dbUserId: string
               </Button>
             )}
           </div>
-          <p className="break-all whitespace-pre md:whitespace-normal mr-auto">{comment.content}</p>
+          <p className="break-all whitespace-normal mr-auto">{comment.content}</p>
         </div>
       </div>
     </div>

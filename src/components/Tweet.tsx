@@ -15,7 +15,7 @@ import Link from 'next/link'
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
 
-const Tweet = ({ post, dbUserId }: { post: Post; dbUserId: string | null }) => {
+const Tweet = ({ post, dbUserId, className }: { post: Post; dbUserId: string | null, className?: string }) => {
   const hasCommented = post.comments.some(comment => comment.authorId === dbUserId);
   const [hasLiked, setHasLiked] = useState(post.likes.some(like => like.userId === dbUserId));
   const [isLiking, setIsLiking] = useState(false);
@@ -51,8 +51,8 @@ const Tweet = ({ post, dbUserId }: { post: Post; dbUserId: string | null }) => {
   };
 
   return (
-    <>
-      <div className='flex flex-col mt-5 px-5 md:px-20'>
+    <div className={className}>
+      <div className='flex flex-col'>
         <div className='flex flex-row gap-4 items-start'>
           <div className='self-start'>
             <UserCard user={post.author}>
@@ -80,7 +80,7 @@ const Tweet = ({ post, dbUserId }: { post: Post; dbUserId: string | null }) => {
                 </Button>
               )}
             </div>
-            <p className="break-all whitespace-pre md:whitespace-normal text-sm md:text-base">{post.content}</p>
+            <p className="break-all whitespace-normal text-sm md:text-base">{post.content}</p>
             {post.image && (
               <img src={post.image} className='max-w-full md:max-w-5/6 h-auto border rounded-xl mt-2' alt='image'></img>
             )}
@@ -112,7 +112,7 @@ const Tweet = ({ post, dbUserId }: { post: Post; dbUserId: string | null }) => {
         </div>
       </div>
       <Separator className='my-5'/>
-    </>
+    </div>
   )
 }
 

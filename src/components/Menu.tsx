@@ -111,9 +111,11 @@ const Menu = async()=> {
           </Link>
         </Button>
 
-        <Suspense fallback={<LoadingSkeleton avatar={true} />}>
-          <MenuAvatar name={user?.name} username={user?.username}/>
-        </Suspense>
+        { user && (
+          <Suspense fallback={<LoadingSkeleton avatar={true} />}>
+            <MenuAvatar name={user?.name} username={user?.username}/>
+          </Suspense>
+        )}
       </SignedIn>
 
       <SignedOut>

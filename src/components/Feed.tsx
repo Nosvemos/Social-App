@@ -17,7 +17,7 @@ const Feed = async() => {
       </SignedIn>
       <Suspense fallback={<LoadingSpinner size={26}/>}>
         {posts.map(post => (
-          <Tweet key={post.id} post={post} dbUserId={dbUserId}/>
+          <Tweet key={post.id} post={post} dbUserId={dbUserId} className={'px-5 md:px-20 mt-5'}/>
         ))}
       </Suspense>
     </>

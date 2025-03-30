@@ -11,7 +11,6 @@ import { getPosts } from '@/actions/post'
 import CommentItem from '@/components/CommentItem'
 import NewComment from '@/components/NewComment'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Separator } from '@/components/ui/separator'
 import { formatTimeDifference } from '@/lib/utils'
 import Link from 'next/link'
 import UserCard from '@/components/UserCard'
@@ -42,7 +41,7 @@ const Comments = ({ dbUserId, post, hasCommented }: { dbUserId: string | null, p
                   <UserCard user={post.author}>
                     <Link href={`/${post.author.username}`}>
                       <Avatar>
-                        <AvatarImage src={post.author.image}/>
+                        <AvatarImage src={post.author.image ?? ''}/>
                         <AvatarFallback></AvatarFallback>
                       </Avatar>
                     </Link>
@@ -55,7 +54,7 @@ const Comments = ({ dbUserId, post, hasCommented }: { dbUserId: string | null, p
                     <span className='text-neutral-500'>·</span>
                     <span className='text-neutral-500'>{formatTimeDifference(new Date(post.createdAt))} ago</span>
                   </div>
-                  <p className="break-all whitespace-pre md:whitespace-normal mr-auto">{post.content} {post.image ?? ''}</p>
+                  <p className="break-all whitespace-normal mr-auto">{post.content} {post.image ?? ''}</p>
                   {dbUserId && (
                     <p className="text-neutral-500 text-sm mr-auto">Replying to <span className='text-blue-400'>@{post.author.username}</span></p>
                   )}
